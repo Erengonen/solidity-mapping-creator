@@ -1,0 +1,9 @@
+artifacts
+cache
+node_modules
+typechain
+package-lock.json
+typechain-types
+yarn.lock
+.env
+.DS_Store
