@@ -5,7 +5,7 @@ contract MappingCreator {
     uint256[] public mappingSlots;
 
 
-    function updateMapping(uint _slot, uint _mappingkey, address _mappingValue) public {
+    function updateMapping(uint _slot, uint _mappingkey, address _mappingValue) external {
         require(mappingSlots[mappingSlots.length-1] >= _slot, "This mapping not created yet.");
         assembly {
             mstore(0, _mappingkey)
@@ -20,7 +20,7 @@ contract MappingCreator {
         } 
     }
 
-    function createMapping(uint _mappingKey, address _mappingValue) public returns(uint) {
+    function createMapping(uint _mappingKey, address _mappingValue) external {
         // let newHash := keccak256(add(_address, 0x20), mload(_address))
         uint256 lastEmptySlot;
         if(mappingSlots.length > 0) {
@@ -41,12 +41,10 @@ contract MappingCreator {
             sstore(hash,_mappingValue)
         } 
         mappingSlots.push(lastEmptySlot);
-
-        return lastEmptySlot;
     }
 
 
-    function getMapping(uint _mappingKey, uint _slot) public view returns (address result) {
+    function getMapping(uint _mappingKey, uint _slot) external view returns (address result) {
         assembly {
             // Store num in memory scratch space (note: lookup "free memory pointer" if you need to allocate space)
             mstore(0, _mappingKey)
