@@ -13,8 +13,9 @@ contract MappingCreator {
             mstore(32, _slot)
             // Create hash from previously stored num and slot
             let hash := keccak256(0, 64)
+            // Change the hash with the new updated value hash
             sstore(hash,_mappingValue)   
-            // Load mapping value using the just calculated hash
+            
 
         } 
     }
