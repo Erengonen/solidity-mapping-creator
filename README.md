@@ -13,7 +13,7 @@
 
   
 
-A Smart contract using assembly for creating, updating, read storage mapping from function. It's creates (uint256 => address) mapping. Contract stores the created mappings slots inside the mappingSlot list. Storing slot numbers inside the list is not efficient. It's doubles the gas cost. 
+A Smart contract using assembly for creating, updating, read storage mapping from function. With this contract, String, Uint256, Bytes32, Address mappings can be created within the function. The value of the created mappings will be seen from getMapping function.
 
   
 
