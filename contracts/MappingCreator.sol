@@ -24,7 +24,7 @@ contract MappingCreator {
     }
 
     function updateMapping(uint _slot, uint _mappingkey, uint256 _mappingValue) public {
-        require(lastEmptySlot >= _slot, "This mapping not created yet.");
+        require(lastEmptySlot >= _slot && _slot > 2, "This mapping not created yet.");
         // bytes32  hashed = keccak256(abi.encodePacked(_mappingValue));
         assembly {
             mstore(0, _mappingkey)
