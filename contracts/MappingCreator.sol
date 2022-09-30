@@ -23,7 +23,7 @@ contract MappingCreator {
         return lastOneByte;
     }
 
-    function updateMapping(uint _slot, uint _mappingkey, uint256 _mappingValue) public {
+    function updateMapping(uint _slot, uint _mappingkey, uint256 _mappingValue) external {
         require(lastEmptySlot >= _slot && _slot > 2, "This mapping not created yet.");
         // bytes32  hashed = keccak256(abi.encodePacked(_mappingValue));
         assembly {
@@ -43,7 +43,7 @@ contract MappingCreator {
         MapType _valType,
         bytes32  _mappingKey, 
         bytes32  _mappingValue
-        ) public {
+        ) external {
         bytes2 concattedBytes = concateBytes(_keyType, _valType);
         slotToType[lastEmptySlot] = concattedBytes;
         
@@ -63,7 +63,7 @@ contract MappingCreator {
     }
 
 
-    function getMapping(bytes32 _mappingKey, uint256 _slot) public view returns (string memory strRes, uint256 uintRes, address adsRes, bytes memory bytRes) {
+    function getMapping(bytes32 _mappingKey, uint256 _slot) external view returns (string memory strRes, uint256 uintRes, address adsRes, bytes memory bytRes) {
         bytes2 keyValTypes = slotToType[_slot];
         uint8 keyType = uint8(bytes1(keyValTypes));
         bytes2 reversedByte = (keyValTypes << 8 | (keyValTypes >> 8)); 
@@ -78,19 +78,6 @@ contract MappingCreator {
             let hash := keccak256(0, 64)
             // Load mapping value using the just calculated hash
             result := sload(hash)
-        //    switch valType
-        //     case 0{
-        //         strRes := result
-        //     }
-        //     case 1{
-        //         uintRes := mload(add(result, add(0x20, 0)))
-        //     }
-        //     case 2{
-        //         adsRes := result
-        //     }
-        //     case 3{
-        //         bytRes := result
-        //     }  
         }
 
         if(valType == 0){
